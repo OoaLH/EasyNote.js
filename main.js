@@ -1,3 +1,10 @@
+"use strict";
+import {$,jQuery} from 'jquery';
+import "./styles.css"
+function noteWidget() {
+    const note = document.createElement('p')
+}
+
 document.getElementById("get").onclick = function () {
     var selection_text = window.getSelection().toString();
     if (selection_text==''){
