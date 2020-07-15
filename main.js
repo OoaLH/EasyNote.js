@@ -69,11 +69,10 @@ function highlightFunc() {
         }
 
         
-    else if (range.startContainer == range.endContainer) {
-        
+        else if (range.startContainer == range.endContainer && (range.startContainer.classList == null || !range.startContainer.classList.contains('note'))) {
         
             for(var idx in childNodes){
-                if (range.startContainer.parentElement.className != 'note' && (childNodes[idx] == range.startContainer || childNodes[idx] == range.startContainer.parentNode)){
+                if (!range.startContainer.parentElement.classList.contains('note') && (childNodes[idx] == range.startContainer || childNodes[idx] == range.startContainer.parentNode)){
                     const nodeText = childNodes[idx].textContent;
                     const prefix = nodeText.substring(0, startOffset);
                     const middle = "<span class='highlighted"+name+"'>" + nodeText.substring(startOffset, endOffset) + "</span>";
@@ -83,87 +82,87 @@ function highlightFunc() {
                           }
                       } }
    
-    else if (range.startContainer.parentElement.className != 'note' && range.endContainer.parentElement.className != 'note' && range.startContainer.parentElement.className != 'highlighted'+name && range.endContainer.parentElement.className != 'highlighted'+name) {
-        let isStart = false;
-        let startNode
-        let endNode
-        let span = ''
-        for(var idx in childNodes){
-            if (childNodes[idx] == range.startContainer || childNodes[idx] == range.startContainer.parentNode) {
-                isStart = true
-                startNode = childNodes[idx]
-                const nodeText = childNodes[idx].textContent;
-                const prefix = nodeText.substring(0, startOffset);
-                const suffix = "<span class='highlighted"+name+"'>" + nodeText.substring(startOffset, nodeText.length);
-                span = prefix + suffix
-            }
-            else if (childNodes[idx] == range.endContainer || childNodes[idx] == range.endContainer.parentNode) {
-                isStart = false
-                endNode = childNodes[idx]
-                console.log(childNodes[idx])
-                const nodeText = childNodes[idx].textContent;
-                const prefix = nodeText.substring(0, endOffset) + "</span>";
-                const suffix = nodeText.substring(endOffset, nodeText.length);
-                span += prefix + suffix
-                break
-            }
-            else {
-                
-            if (isStart == true && childNodes[idx].className == "highlighted"+name) {
-                span += childNodes[idx].innerHTML
-                childNodes[idx].replaceWith("")
-            }
-            else if (isStart == true && childNodes[idx].className == "note") {
-                span += ("<a class='note'>" + childNodes[idx].innerHTML + "</a>")
-                childNodes[idx].replaceWith("")
-            }
-            else if (isStart == true) {
-                span += childNodes[idx].textContent
-                childNodes[idx].replaceWith("")
-            }
-            
-        }
-        }
-        //const s = document.createElement()
-        $(startNode).replaceWith("");
-        $(endNode).replaceWith(span);
-        //$(startNode).replaceWith(s);
-        //$(endNode).replaceWith(e);
-        //startNode.innerHTML = startSpan
-        //endNode.innerHTML = endSpan
-        //$(startNode).html(startSpan)
-        //$(endNode).html(endSpan)
-        /*
-        isStart = false
-        
-        for(var idx in childNodes){
-            if (childNodes[idx] == range.startContainer || childNodes[idx] == range.startContainer.parentNode){
-                isStart = true;
-                const nodeText = childNodes[idx].textContent;
-                const prefix = nodeText.substring(0, startOffset);
-                const suffix = "<span class='highlighted"+name+"'>" + nodeText.substring(startOffset, nodeText.length);
-                replace_span =  prefix + suffix;
-                childNodes[idx].replaceWith("")
-                                }
-            else if(childNodes[idx] == range.endContainer || childNodes[idx] == range.endContainer.parentNode){
-                isStart = false;
-                const nodeText = childNodes[idx].textContent;
-                const prefix = nodeText.substring(0, endOffset) + "</span>";
-                const suffix = nodeText.substring(endOffset, nodeText.length);
-                replace_span += prefix + suffix
-                $(childNodes[idx]).replaceWith(replace_span);
-                break;
-                                }
-            else {
-                if(isStart){
-                    replace_span += childNodes[idx].textContent
+        else if (!range.startContainer.parentElement.classList.contains('note') && !range.endContainer.parentElement.classList.contains('note') && range.startContainer.parentElement.className != 'highlighted'+name && range.endContainer.parentElement.className != 'highlighted'+name) {
+            console.log('2')
+            let isStart = false;
+            let startNode
+            let endNode
+            let span = ''
+            for(var idx in childNodes){
+                if (childNodes[idx] == range.startContainer || childNodes[idx] == range.startContainer.parentNode) {
+                    isStart = true
+                    startNode = childNodes[idx]
+                    const nodeText = childNodes[idx].textContent;
+                    const prefix = nodeText.substring(0, startOffset);
+                    const suffix = "<span class='highlighted"+name+"'>" + nodeText.substring(startOffset, nodeText.length);
+                    span = prefix + suffix
+                }
+                else if (childNodes[idx] == range.endContainer || childNodes[idx] == range.endContainer.parentNode) {
+                    isStart = false
+                    endNode = childNodes[idx]
+                    const nodeText = childNodes[idx].textContent;
+                    const prefix = nodeText.substring(0, endOffset) + "</span>";
+                    const suffix = nodeText.substring(endOffset, nodeText.length);
+                    span += prefix + suffix
+                    break
+                }
+                else {
+                    
+                if (isStart == true && childNodes[idx].className == "highlighted"+name) {
+                    span += childNodes[idx].innerHTML
                     childNodes[idx].replaceWith("")
+                }
+                else if (isStart == true && childNodes[idx].classList.contains('note')) {
+                    span += ("<a class='note'>" + childNodes[idx].innerHTML + "</a>")
+                    childNodes[idx].replaceWith("")
+                }
+                else if (isStart == true) {
+                    span += childNodes[idx].textContent
+                    childNodes[idx].replaceWith("")
+                }
+                
+            }
+            }
+            //const s = document.createElement()
+            $(startNode).replaceWith("");
+            $(endNode).replaceWith(span);
+            //$(startNode).replaceWith(s);
+            //$(endNode).replaceWith(e);
+            //startNode.innerHTML = startSpan
+            //endNode.innerHTML = endSpan
+            //$(startNode).html(startSpan)
+            //$(endNode).html(endSpan)
+            /*
+            isStart = false
+            
+            for(var idx in childNodes){
+                if (childNodes[idx] == range.startContainer || childNodes[idx] == range.startContainer.parentNode){
+                    isStart = true;
+                    const nodeText = childNodes[idx].textContent;
+                    const prefix = nodeText.substring(0, startOffset);
+                    const suffix = "<span class='highlighted"+name+"'>" + nodeText.substring(startOffset, nodeText.length);
+                    replace_span =  prefix + suffix;
+                    childNodes[idx].replaceWith("")
+                                    }
+                else if(childNodes[idx] == range.endContainer || childNodes[idx] == range.endContainer.parentNode){
+                    isStart = false;
+                    const nodeText = childNodes[idx].textContent;
+                    const prefix = nodeText.substring(0, endOffset) + "</span>";
+                    const suffix = nodeText.substring(endOffset, nodeText.length);
+                    replace_span += prefix + suffix
+                    $(childNodes[idx]).replaceWith(replace_span);
+                    break;
+                                    }
+                else {
+                    if(isStart){
+                        replace_span += childNodes[idx].textContent
+                        childNodes[idx].replaceWith("")
+                                    }
                                 }
-                              }
-                          }
-                          */
-  }
-  }
+                            }
+                            */
+    }
+}
     const reg = new RegExp("</span><span class=\"highlighted"+name+"\">","g");
     this.innerHTML = this.innerHTML.replace(reg, "")
     const popups = Array.from(document.getElementsByClassName('pop-up'))
@@ -292,7 +291,9 @@ function controlWidget(name, style='', copy=true) {
             return
         }
         const range = window.getSelection().getRangeAt(0);
-        if (range.startContainer == range.endContainer && (range.startContainer.parentNode.name == name || range.startContainer.parentNode.parentNode.name == name)) {
+        if (range.startContainer == range.endContainer && (range.startContainer.parentElement.classList == null || !range.startContainer.parentElement.classList.contains('note')) && (range.startContainer.parentNode.name == name || range.startContainer.parentNode.parentNode.name == name)) {
+            console.log(range.startContainer.className)
+            console.log(range.startContainer.parentNode.className)
             const noteElement = range.startContainer.parentElement
             const startOffset = range.startOffset;
             const endOffset = range.endOffset;
