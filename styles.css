@@ -1,11 +1,13 @@
 .control {
   display: flex;
   background: rgba(0,0,0,.75);
-  border: 1px solid #333;
+  border: 1px solid rgb(172, 170, 170);
+  border-radius: 5px;
   left: 20px;
   padding: 10px;
   top: 20px;
   z-index: 2;
+  opacity: 0.9;
 }
 
 .mode-picker {
@@ -82,12 +84,15 @@ input:checked + .mode-picker-label:before {
 
 [type=color] {
   margin:0 5px;
+  outline: none;
+  height: 29px;
 }
 
 .button {
-  font-family: 'Helvetica', 'Arial', sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   display: inline-block;
-  font-size: 1em;
+  font-size: 14px;
+  text-transform: uppercase;
   padding: 5 10px;
   margin: 0 5px;
   -webkit-appearance: none;
@@ -113,20 +118,9 @@ input:checked + .mode-picker-label:before {
 }
 
 .button:disabled {
-  font-family: 'Helvetica', 'Arial', sans-serif;
-  pointer-events: none;
-  display: inline-block;
-  font-size: 1em;
-  padding: 5 10px;
-  -webkit-appearance: none;
-  appearance: none;
   background-color: #9c99ad;
   color: #afacc2;
-  border-radius: 4px;
-  border: none;
-  position: relative;
-  transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
-  box-shadow: 1px 1px 10px rgb(145, 143, 143);
+  box-shadow: none;
 }
 
 .note {

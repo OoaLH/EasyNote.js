@@ -29,11 +29,7 @@ function noteWidget(text, name, style='') {
     note.addEventListener('click', highlightFunc)
     return note
 }
-noteWidget.prototype = {
-    createNote: function() {
 
-    }
-}
 function highlightFunc() {
     const name = this.name
     const selection_text = window.getSelection().toString();
@@ -152,11 +148,11 @@ function highlightFunc() {
   const reg = new RegExp("</span><span class=\"highlighteda\">","g");
   this.innerHTML = this.innerHTML.replace(reg, "")
 }
-function controlWidget(name, style='') {
+function controlWidget(name, style='', copy=true) {
     const control = document.createElement('div')
+    control.className = 'control'
     control.style = style
     control.setAttribute('name', name)
-    control.className = 'control'
     const modePicker = document.createElement('fieldset')
     modePicker.className = 'mode-picker'
     const highlightMode = document.createElement('input')
@@ -212,6 +208,7 @@ function controlWidget(name, style='') {
     const copyButton = document.createElement('button')
     copyButton.className = 'button'
     copyButton.innerHTML = 'copy highlights'
+    copyButton.disabled = !copy
     control.appendChild(copyButton)
     copyButton.onclick = function() {
         const toBeCopied = Array.from(document.getElementsByClassName('highlighted'+name))
