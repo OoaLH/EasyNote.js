@@ -33,7 +33,6 @@ function noteWidget(text, name, style='') {
 function highlightFunc() {
     const name = this.name
     const selection_text = window.getSelection().toString();
-    //console.log(window.getSelection())
     if (selection_text==''){
       return
     }
@@ -60,8 +59,6 @@ function highlightFunc() {
             childNodes[0].parentNode.innerHTML = prefix + middle + suffix;
         }
     }
-    //console.log(range.startContainer.parentElement)
-    //console.log(range.endContainer.parentElement)
     else {
         /*
         if (range.startContainer == range.endContainer && range.startContainer.parentElement.className == 'note') {
@@ -100,12 +97,7 @@ function highlightFunc() {
         
         let isStart = false;
         let replace_span = ""
-        //console.log(range.startContainer)
-        //console.log(range.endContainer)
-        
         for(var idx in childNodes){
-            //console.log(childNodes[idx].innerHTML)
-            console.log('here')
             if (childNodes[idx] == range.startContainer || childNodes[idx] == range.startContainer.parentNode) {
                 isStart = true
             }
@@ -145,16 +137,48 @@ function highlightFunc() {
                           }
   }
   }
-  const reg = new RegExp("</span><span class=\"highlighteda\">","g");
-  this.innerHTML = this.innerHTML.replace(reg, "")
+    const reg = new RegExp("</span><span class=\"highlighteda\">","g");
+    this.innerHTML = this.innerHTML.replace(reg, "")
+    const popups = Array.from(document.getElementsByClassName('pop-up'))
+    popups.forEach(function(item) {
+        if (!item.active) {
+            item.active = true
+            item.addEventListener("input", function(e) {
+                this.innerHTML = this.value
+            })
+        }
+            })
+    const notes = Array.from(document.getElementsByClassName('note'))
+    notes.forEach(function(item) {
+        if (!item.active) {                    
+            item.active = true
+            item.addEventListener('click', function() {
+                if (this.classList.contains('to-be-deleted')) {
+                    this.classList.remove('to-be-deleted')
+                    document.getElementById('deleteButton'+name).disabled = true
+                }
+                else {
+                    const pre = Array.from(document.getElementsByClassName('to-be-deleted'))
+                    if (pre[0] != null) {
+                        pre[0].classList.remove("to-be-deleted")
+                    }
+                    $(this).addClass("to-be-deleted").siblings().removeClass("to-be-deleted");
+                    document.getElementById('deleteButton'+name).disabled = false
+                }
+                })
+                }
+            })
 }
+
 function controlWidget(name, style='', copy=true) {
     const control = document.createElement('div')
     control.className = 'control'
     control.style = style
     control.setAttribute('name', name)
+
     const modePicker = document.createElement('fieldset')
     modePicker.className = 'mode-picker'
+
     const highlightMode = document.createElement('input')
     highlightMode.name = 'mode'+name
     highlightMode.type = 'radio'
@@ -174,6 +198,7 @@ function controlWidget(name, style='', copy=true) {
             }
         })
     }
+
     const noteMode = document.createElement('input')
     noteMode.type = 'radio'
     noteMode.name = 'mode'+name
@@ -192,11 +217,13 @@ function controlWidget(name, style='', copy=true) {
             }
         })
     }
+
     modePicker.appendChild(highlightMode)
     modePicker.appendChild(highlight)
     modePicker.appendChild(noteMode)
     modePicker.appendChild(addNote)
     control.appendChild(modePicker)
+
     const colorPicker = document.createElement('input')
     colorPicker.type = 'color'
     colorPicker.defaultValue = '#FFFF00'
@@ -205,6 +232,7 @@ function controlWidget(name, style='', copy=true) {
 
     }, false);
     control.appendChild(colorPicker)
+
     const copyButton = document.createElement('button')
     copyButton.className = 'button'
     copyButton.innerHTML = 'copy highlights'
@@ -226,6 +254,7 @@ function controlWidget(name, style='', copy=true) {
         document.execCommand('copy')
         copy.remove()
     }
+
     const noteButton = document.createElement('button')
     noteButton.className = 'button'
     noteButton.id = 'noteButton'+name
@@ -255,7 +284,6 @@ function controlWidget(name, style='', copy=true) {
                 if (!item.active) {
                     item.active = true
                     item.addEventListener("input", function(e) {
-                        console.log(this.value);
                         this.innerHTML = this.value
                     })
                 }
@@ -265,21 +293,27 @@ function controlWidget(name, style='', copy=true) {
             notes.forEach(function(item) {
                 if (!item.active) {
                     item.active = true
-                    $(item).click(function() {
+                    item.addEventListener('click', function() {
                         if (this.classList.contains('to-be-deleted')) {
                             this.classList.remove('to-be-deleted')
                             document.getElementById('deleteButton'+name).disabled = true
                         }
                         else {
+                            const pre = Array.from(document.getElementsByClassName('to-be-deleted'))
+                            if (pre[0] != null) {
+                                pre[0].classList.remove("to-be-deleted")
+                            }
                             $(this).addClass("to-be-deleted").siblings().removeClass("to-be-deleted");
                             document.getElementById('deleteButton'+name).disabled = false
                         }
                     })
+                    
                 }
             })
         }
     }
     control.appendChild(noteButton)
+
     const deleteButton = document.createElement('button')
     deleteButton.className = 'button'
     deleteButton.id = 'deleteButton'+name
@@ -290,12 +324,10 @@ function controlWidget(name, style='', copy=true) {
         deleting.removeChild(deleting.lastChild)
         let text = deleting.textContent.trim()
         if ((deleting.previousSibling.className == 'note' || deleting.previousSibling.className == 'highlighted'+name) && deleting.nextSibling.className != 'note' && deleting.nextSibling.className != 'highlighted'+name) {
-            console.log('pre')
             deleting.nextSibling.textContent = text + deleting.nextSibling.textContent
             deleting.parentNode.removeChild(deleting)
         }
         else if ((deleting.nextSibling.className == 'note' || deleting.nextSibling.className == 'highlighted'+name) && deleting.previousSibling.className != 'note' && deleting.previousSibling.className != 'highlighted'+name) {
-            console.log('post')
             deleting.previousSibling.textContent += text
             deleting.parentNode.removeChild(deleting)
         }
@@ -308,11 +340,18 @@ function controlWidget(name, style='', copy=true) {
         this.disabled = true
     }
     control.appendChild(deleteButton)
+
     const wipeButton = document.createElement('button')
     wipeButton.className = 'button'
     wipeButton.id = 'wipeButton'
     wipeButton.innerHTML = 'wipe all'
     wipeButton.onclick = function() {
+        const notes = Array.from(document.getElementsByTagName('textarea'))
+        notes.forEach(function(item) {
+            if (item.parentNode.parentNode.name == name || item.parentNode.parentNode.parentNode.name == name) {
+                item.remove()
+            }
+        })
         const texts = document.getElementsByName(name)
         texts.forEach(function(item) {
             if (item != control) {
@@ -321,5 +360,6 @@ function controlWidget(name, style='', copy=true) {
         })
     }
     control.appendChild(wipeButton)
+    
     return control
 }
