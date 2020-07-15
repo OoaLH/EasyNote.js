@@ -60,16 +60,6 @@ function highlightFunc() {
         }
     }
     else {
-        /*
-        if (range.startContainer == range.endContainer && range.startContainer.parentElement.className == 'note') {
-            console.log(2)
-            const nodeText = range.startContainer.textContent;
-            const prefix = nodeText.substring(0, startOffset);
-            const middle = "<span class='highlighted"+name+"'>" + "<span class='note'>" + nodeText.substring(startOffset, endOffset) + "</span>" + "</span>"
-            const suffix = nodeText.substring(endOffset, nodeText.length);
-            $(range.startContainer.parentNode).replaceWith( prefix + middle + suffix);
-        }
-        */
         if (range.startContainer == range.endContainer && range.startContainer.parentElement.className == 'highlighted'+name) {
             const nodeText = range.startContainer.parentNode.innerHTML;
             const prefix = nodeText.substring(0, startOffset);
@@ -94,20 +84,56 @@ function highlightFunc() {
                       } }
    
     else if (range.startContainer.parentElement.className != 'note' && range.endContainer.parentElement.className != 'note' && range.startContainer.parentElement.className != 'highlighted'+name && range.endContainer.parentElement.className != 'highlighted'+name) {
-        
         let isStart = false;
-        let replace_span = ""
+        let startNode
+        let endNode
+        let span = ''
         for(var idx in childNodes){
             if (childNodes[idx] == range.startContainer || childNodes[idx] == range.startContainer.parentNode) {
                 isStart = true
+                startNode = childNodes[idx]
+                const nodeText = childNodes[idx].textContent;
+                const prefix = nodeText.substring(0, startOffset);
+                const suffix = "<span class='highlighted"+name+"'>" + nodeText.substring(startOffset, nodeText.length);
+                span = prefix + suffix
             }
-            if (childNodes[idx] == range.endContainer || childNodes[idx] == range.endContainer.parentNode) {
+            else if (childNodes[idx] == range.endContainer || childNodes[idx] == range.endContainer.parentNode) {
                 isStart = false
+                endNode = childNodes[idx]
+                console.log(childNodes[idx])
+                const nodeText = childNodes[idx].textContent;
+                const prefix = nodeText.substring(0, endOffset) + "</span>";
+                const suffix = nodeText.substring(endOffset, nodeText.length);
+                span += prefix + suffix
+                break
             }
-            if (isStart == true && childNodes[idx].innerHTML != null && (childNodes[idx].innerHTML.search("<a class=\"note\">") != -1 || childNodes[idx].innerHTML.search("</textarea>") != -1)) {
-                return
+            else {
+                
+            if (isStart == true && childNodes[idx].className == "highlighted"+name) {
+                span += childNodes[idx].innerHTML
+                childNodes[idx].replaceWith("")
             }
+            else if (isStart == true && childNodes[idx].className == "note") {
+                span += ("<a class='note'>" + childNodes[idx].innerHTML + "</a>")
+                childNodes[idx].replaceWith("")
+            }
+            else if (isStart == true) {
+                span += childNodes[idx].textContent
+                childNodes[idx].replaceWith("")
+            }
+            
         }
+        }
+        //const s = document.createElement()
+        $(startNode).replaceWith("");
+        $(endNode).replaceWith(span);
+        //$(startNode).replaceWith(s);
+        //$(endNode).replaceWith(e);
+        //startNode.innerHTML = startSpan
+        //endNode.innerHTML = endSpan
+        //$(startNode).html(startSpan)
+        //$(endNode).html(endSpan)
+        /*
         isStart = false
         
         for(var idx in childNodes){
@@ -135,9 +161,10 @@ function highlightFunc() {
                                 }
                               }
                           }
+                          */
   }
   }
-    const reg = new RegExp("</span><span class=\"highlighteda\">","g");
+    const reg = new RegExp("</span><span class=\"highlighted"+name+"\">","g");
     this.innerHTML = this.innerHTML.replace(reg, "")
     const popups = Array.from(document.getElementsByClassName('pop-up'))
     popups.forEach(function(item) {
@@ -360,6 +387,6 @@ function controlWidget(name, style='', copy=true) {
         })
     }
     control.appendChild(wipeButton)
-    
+
     return control
 }
