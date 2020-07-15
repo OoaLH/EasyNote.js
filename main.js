@@ -83,7 +83,6 @@ function highlightFunc() {
                       } }
    
         else if (!range.startContainer.parentElement.classList.contains('note') && !range.endContainer.parentElement.classList.contains('note') && range.startContainer.parentElement.className != 'highlighted'+name && range.endContainer.parentElement.className != 'highlighted'+name) {
-            console.log('2')
             let isStart = false;
             let startNode
             let endNode
@@ -292,8 +291,6 @@ function controlWidget(name, style='', copy=true) {
         }
         const range = window.getSelection().getRangeAt(0);
         if (range.startContainer == range.endContainer && (range.startContainer.parentElement.classList == null || !range.startContainer.parentElement.classList.contains('note')) && (range.startContainer.parentNode.name == name || range.startContainer.parentNode.parentNode.name == name)) {
-            console.log(range.startContainer.className)
-            console.log(range.startContainer.parentNode.className)
             const noteElement = range.startContainer.parentElement
             const startOffset = range.startOffset;
             const endOffset = range.endOffset;
@@ -351,11 +348,11 @@ function controlWidget(name, style='', copy=true) {
         const deleting = Array.from(document.getElementsByClassName('to-be-deleted'))[0]
         deleting.removeChild(deleting.lastChild)
         let text = deleting.textContent.trim()
-        if ((deleting.previousSibling.className == 'note' || deleting.previousSibling.className == 'highlighted'+name) && deleting.nextSibling.className != 'note' && deleting.nextSibling.className != 'highlighted'+name) {
+        if ((deleting.previousSibling == null || deleting.previousSibling.className == 'note' || deleting.previousSibling.className == 'highlighted'+name) && deleting.nextSibling != null && deleting.nextSibling.className != 'note' && deleting.nextSibling.className != 'highlighted'+name) {
             deleting.nextSibling.textContent = text + deleting.nextSibling.textContent
             deleting.parentNode.removeChild(deleting)
         }
-        else if ((deleting.nextSibling.className == 'note' || deleting.nextSibling.className == 'highlighted'+name) && deleting.previousSibling.className != 'note' && deleting.previousSibling.className != 'highlighted'+name) {
+        else if ((deleting.nextSibling == null || deleting.nextSibling.className == 'note' || deleting.nextSibling.className == 'highlighted'+name) && deleting.previouseSibling != null && deleting.previousSibling.className != 'note' && deleting.previousSibling.className != 'highlighted'+name) {
             deleting.previousSibling.textContent += text
             deleting.parentNode.removeChild(deleting)
         }
@@ -390,4 +387,8 @@ function controlWidget(name, style='', copy=true) {
     control.appendChild(wipeButton)
 
     return control
+}
+
+function get() {
+
 }
