@@ -5,15 +5,29 @@ script.src = 'https://code.jquery.com/jquery-3.4.1.min.js';
 script.type = 'text/javascript';
 document.getElementsByTagName('head')[0].appendChild(script);
 */
+function EasyNotePair(name, controllerStyle='', copy=true) {
+    this.name = name
+    this.color = ''
+    this.controller = this.controlWidget(name, controllerStyle, copy)
+    this.noteWidgets = []
+}
 
-function noteWidget(text, name, style='') {
+EasyNotePair.prototype = {
+    controlWidget,
+    createNoteWidget,
+    getHighlights,
+    getNoteArea,
+    getNoteContent,
+}
+
+function createNoteWidget(text, name, style='') {
     const note = document.createElement('p')
     note.setAttribute('name', name)
     note.name = name
     note.innerHTML = text
     note.style = style
     if (document.getElementById('highlightcss'+name) == null) {
-        const css = '.highlighted'+name+'{background:yellow;}'
+        const css = '.highlighted'+name+'{background:'+this.color+';}'
         const head = document.querySelector('head')
         const newStyle = document.createElement('style')
         newStyle.id = 'highlightcss'+name
@@ -27,6 +41,7 @@ function noteWidget(text, name, style='') {
         }
 }
     note.addEventListener('click', highlightFunc)
+    this.noteWidgets.push(note)
     return note
 }
 
@@ -122,44 +137,8 @@ function highlightFunc() {
                 
             }
             }
-            //const s = document.createElement()
             $(startNode).replaceWith("");
             $(endNode).replaceWith(span);
-            //$(startNode).replaceWith(s);
-            //$(endNode).replaceWith(e);
-            //startNode.innerHTML = startSpan
-            //endNode.innerHTML = endSpan
-            //$(startNode).html(startSpan)
-            //$(endNode).html(endSpan)
-            /*
-            isStart = false
-            
-            for(var idx in childNodes){
-                if (childNodes[idx] == range.startContainer || childNodes[idx] == range.startContainer.parentNode){
-                    isStart = true;
-                    const nodeText = childNodes[idx].textContent;
-                    const prefix = nodeText.substring(0, startOffset);
-                    const suffix = "<span class='highlighted"+name+"'>" + nodeText.substring(startOffset, nodeText.length);
-                    replace_span =  prefix + suffix;
-                    childNodes[idx].replaceWith("")
-                                    }
-                else if(childNodes[idx] == range.endContainer || childNodes[idx] == range.endContainer.parentNode){
-                    isStart = false;
-                    const nodeText = childNodes[idx].textContent;
-                    const prefix = nodeText.substring(0, endOffset) + "</span>";
-                    const suffix = nodeText.substring(endOffset, nodeText.length);
-                    replace_span += prefix + suffix
-                    $(childNodes[idx]).replaceWith(replace_span);
-                    break;
-                                    }
-                else {
-                    if(isStart){
-                        replace_span += childNodes[idx].textContent
-                        childNodes[idx].replaceWith("")
-                                    }
-                                }
-                            }
-                            */
     }
 }
     const reg = new RegExp("</span><span class=\"highlighted"+name+"\">","g");
@@ -196,6 +175,10 @@ function highlightFunc() {
 }
 
 function controlWidget(name, style='', copy=true) {
+    if (this.controller) {
+        console.log("can't create more than one control widget in one pair.")
+        return
+    }
     const control = document.createElement('div')
     control.className = 'control'
     control.style = style
@@ -252,9 +235,10 @@ function controlWidget(name, style='', copy=true) {
     const colorPicker = document.createElement('input')
     colorPicker.type = 'color'
     colorPicker.defaultValue = '#FFFF00'
+    this.color = colorPicker.value
     colorPicker.addEventListener ('input', function() {
         document.getElementById('highlightcss'+name).innerText = '.highlighted'+name+'{background:'+colorPicker.value+';}'
-
+        this.color = colorPicker.value
     }, false);
     control.appendChild(colorPicker)
 
@@ -264,15 +248,13 @@ function controlWidget(name, style='', copy=true) {
     copyButton.disabled = !copy
     control.appendChild(copyButton)
     copyButton.onclick = function() {
-        const toBeCopied = Array.from(document.getElementsByClassName('highlighted'+name))
+        const toBeCopied = getHighlightsForName(name)
         const copy = document.createElement('input')
         copy.id = 'copy'
         copy.value = ''
         toBeCopied.forEach(function(item) {
-            if (item.parentElement.name == name) {
-            copy.value += item.innerHTML
+            copy.value += item
             copy.value += ' \n '
-            }
         })
         document.querySelector('body').appendChild(copy)
         copy.select()
@@ -389,6 +371,162 @@ function controlWidget(name, style='', copy=true) {
     return control
 }
 
-function get() {
+function getHighlightsOnPageForName(name) {
+    const highlights = []
+    const children = Array.from(document.getElementsByClassName('highlighted'+name))
+    children.forEach(function(originalChild) {
+        const child = originalChild.cloneNode(true)
+        child.childNodes.forEach(function(highlightChild) {
+            if (highlightChild.classList != null && highlightChild.classList.contains('note')) {
+                highlightChild.childNodes.forEach(function(note) {
+                    if (note.className == 'pop-up') {
+                        highlightChild.removeChild(note)
+                    }
+                })
+            }
+        })
+        highlights.push(child.textContent)
+    })
+    return highlights
+}
 
+function getHighlightsOfWidget(widget) {
+    const highlights = []
+    const name = widget.name
+    const cloneWidget = widget.cloneNode(true)
+    cloneWidget.childNodes.forEach(function(child) {
+        if (child.className == 'highlighted'+name) {
+            child.childNodes.forEach(function(highlightChild) {
+                if (highlightChild.classList != null && highlightChild.classList.contains('note')) {
+                    highlightChild.childNodes.forEach(function(note) {
+                        if (note.className == 'pop-up') {
+                            highlightChild.removeChild(note)
+                        }
+                    })
+                }
+            })
+            highlights.push(child.textContent)
+        }
+    })
+    return highlights
+}
+
+function getHighlights() {
+    const name = this.name
+    const highlights = []
+    const children = []
+    this.noteWidgets.forEach(element => {
+        element.childNodes.forEach(function(item) {
+            if (item.className == 'highlighted'+name) {
+                children.push(item)
+            }
+        })
+    });
+    children.forEach(function(originalChild) {
+        const child = originalChild.cloneNode(true)
+        child.childNodes.forEach(function(highlightChild) {
+            if (highlightChild.classList != null && highlightChild.classList.contains('note')) {
+                highlightChild.childNodes.forEach(function(note) {
+                    if (note.className == 'pop-up') {
+                        highlightChild.removeChild(note)
+                    }
+                })
+            }
+        })
+        highlights.push(child.textContent)
+    })
+    return highlights
+}
+
+function getNoteAreaOnPageForName(name) {
+    const noteArea = []
+    const notes = Array.from(document.getElementsByClassName('note'))
+    notes.forEach(function(note) {
+        if (note.parentNode.name == name || note.parentNode.className == 'highlighted'+name) {
+            const cloneNote = note.cloneNode(true)
+            cloneNote.removeChild(cloneNote.lastChild)
+            noteArea.push(cloneNote.textContent)
+        }
+    })
+    return noteArea
+}
+
+function getNoteAreaOfWidget(widget) {
+    const noteArea = []
+    widget.childNodes.forEach(function(item) {
+        if (item.classList != null && item.classList.contains('note')) {
+            const cloneNote = item.cloneNode(true)
+            cloneNote.removeChild(cloneNote.lastChild)
+            noteArea.push(cloneNote.textContent)
+        }
+        else {
+            item.childNodes.forEach(function(child) {
+                if (child.classList != null && child.classList.contains('note')) {
+                    const cloneNote = child.cloneNode(true)
+                    cloneNote.removeChild(cloneNote.lastChild)
+                    noteArea.push(cloneNote.textContent)
+                }
+            })
+        }
+    })
+    return noteArea
+}
+
+function getNoteArea() {
+    const noteArea = []
+    this.noteWidgets.forEach(function(widget) {
+        noteArea.push.apply(noteArea, getNoteAreaOfWidget(widget))
+    })
+    return noteArea
+}
+
+function getNoteContentOnPageForName(name) {
+    const noteContent = []
+    const notes = Array.from(document.getElementsByClassName('note'))
+    notes.forEach(function(note) {
+        if (note.parentNode.name == name || note.parentNode.className == 'highlighted'+name) {
+            const cloneNote = note.cloneNode(true)
+            const content = cloneNote.lastChild.textContent
+            cloneNote.removeChild(cloneNote.lastChild)
+            const temp = {}
+            temp[cloneNote.textContent] = content
+            noteContent.push(temp)
+        }
+    })
+    return noteContent
+}
+
+function getNoteContentOfWidget(widget) {
+    const noteContent = []
+    widget.childNodes.forEach(function(item) {
+        if (item.classList != null && item.classList.contains('note')) {
+            const cloneNote = item.cloneNode(true)
+            const content = cloneNote.lastChild.textContent
+            cloneNote.removeChild(cloneNote.lastChild)
+            const temp = {}
+            temp[cloneNote.textContent] = content
+            noteContent.push(temp)
+        }
+        else {
+            item.childNodes.forEach(function(child) {
+                if (child.classList != null && child.classList.contains('note')) {
+                    const cloneNote = child.cloneNode(true)
+                    const content = cloneNote.lastChild.textContent
+                    cloneNote.removeChild(cloneNote.lastChild)
+                    const temp = {}
+                    temp[cloneNote.textContent] = content
+                    noteContent.push(temp)
+                }
+            })
+        }
+    })
+    return noteContent
+}
+
+function getNoteContent() {
+    const noteContent = []
+    this.noteWidgets.forEach(function(widget) {
+        noteContent.push.apply(noteContent, getNoteContentOfWidget(widget))
+    })
+    return noteContent
 }
