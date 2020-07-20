@@ -90,17 +90,20 @@ input:checked + .mode-picker-label:before {
 
 .button {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  border: 2px solid;
+  border-color: #e4e0fb #b6b1d1 #b6b1d1;
   display: inline-block;
   font-size: 14px;
+  font-weight: 200;
   text-transform: uppercase;
+  text-shadow: 0 1px 1px black;
   padding: 5 10px;
   margin: 0 5px;
   -webkit-appearance: none;
   appearance: none;
-  background-color: #9c99ad;
+  background: #302e42;
   color: white;
   border-radius: 4px;
-  border: none;
   cursor: pointer;
   position: relative;
   transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
