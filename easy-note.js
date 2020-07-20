@@ -20,8 +20,9 @@ EasyNotePair.prototype = {
     getNoteContent,
 }
 
-function createNoteWidget(text, name, style='') {
+function createNoteWidget(text, style='') {
     const note = document.createElement('p')
+    const name = this.name
     note.setAttribute('name', name)
     note.name = name
     note.innerHTML = text
@@ -176,8 +177,7 @@ function highlightFunc() {
 
 function controlWidget(name, style='', copy=true) {
     if (this.controller) {
-        console.log("can't create more than one control widget in one pair.")
-        return
+        console.log("can't create more than one control widget in one easy-note pair.")
     }
     const control = document.createElement('div')
     control.className = 'control'
@@ -248,7 +248,7 @@ function controlWidget(name, style='', copy=true) {
     copyButton.disabled = !copy
     control.appendChild(copyButton)
     copyButton.onclick = function() {
-        const toBeCopied = getHighlightsForName(name)
+        const toBeCopied = getHighlightsOnPageForName(name)
         const copy = document.createElement('input')
         copy.id = 'copy'
         copy.value = ''
