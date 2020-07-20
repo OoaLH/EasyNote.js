@@ -234,7 +234,7 @@ function controlWidget(name, style='', copy=true) {
 
     const colorPicker = document.createElement('input')
     colorPicker.type = 'color'
-    colorPicker.defaultValue = '#FFFF00'
+    colorPicker.value = '#FFFF00'
     this.color = colorPicker.value
     colorPicker.addEventListener ('input', function() {
         document.getElementById('highlightcss'+name).innerText = '.highlighted'+name+'{background:'+colorPicker.value+';}'
