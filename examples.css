@@ -1,12 +1,14 @@
 body {
     margin: 0;
+    padding: 0;
+    width: 100%;
 }
 header {
-    padding: 1%;
+    padding: 10px;
     background-color: rgba(134, 204, 236, 0.445);
 }
 footer {
-    padding: 1%;
+    padding: 10px;
     background-color: rgba(134, 204, 236, 0.445);
 }
 #articles {
