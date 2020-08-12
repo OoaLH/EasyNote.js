@@ -48,6 +48,25 @@
   transition: 0.15s ease-out;
 }
 
+.mode-picker:hover ~ div.explanation{
+  border: 1px solid black;
+  height: 50px;
+  padding: 10px;
+  transform:translateY(-70px);
+  border-radius: 5px;
+
+}
+
+.explanation{
+  position: absolute;
+  height: 0;
+  overflow: hidden;
+  width: 290px;
+  background: white;
+  z-index: 1;
+  font-family: 'Helvetica';
+}
+
 .mode-picker-label:before {
   content: '';
   position: absolute;
@@ -66,10 +85,6 @@
 input:checked + .mode-picker-label {
   color: white;
   background: #302e42;
-  background-image: -webkit-linear-gradient(top, #302e42, #29253b);
-  background-image: -moz-linear-gradient(top, #302e42, #29253b);
-  background-image: -o-linear-gradient(top, #302e42, #29253b);
-  background-image: linear-gradient(to bottom, #302e42, #29253b);
 }
 
 input:checked + .mode-picker-label:before {
