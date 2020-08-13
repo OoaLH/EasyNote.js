@@ -1,0 +1,55 @@
+<head>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="documentation.css" />
+</head>
+<body>
+    <header>
+        <nav>
+            <br><br><br><p>EasyNote.js</p>
+            <br><br><a href="#start">Getting Started</a>
+            <br><br><a href="#use">How to Use</a>
+            <br><br><a href="#api">API</a>
+            <br><br><a href="../pub/LandingPage.html">Examples</a>
+            <br><br><a href="">Source</a>
+        </nav>
+    </header>
+    <main class="v-center">
+        <h1 id='start'>
+            Getting Started
+        </h1>
+        <p>This part is an instruction for getting developers set up to use the EasyNote library.</p>
+        <p>The fully functional library requires jQuery and EasyNote's css file. To use the library, download required files and add codes below to your website's html code.</p>
+        <div class='code'>
+        <code>&#60;script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js">&#60;/script></code>
+        <br><code>&#60;script defer src='easy-note.js'>&#60;/script></code>
+        <br><code>&#60;link rel="stylesheet" type="text/css" href="easy-note.css"/></code>
+        </div>
+        <p>Now, you can create an EasyNotePair object. The control widget and note widgets of the same EasyNotePair object are paired with each other and are independent to widgets of other EasyNotePairs.</p>
+        <div class='code'><code>const pair = new EasyNotePair('a-unique-name', 'style-of-control-widget', true) //set true to false when disabling copy highlights feature.</code></div>
+        <p>Get the control widget and create note widgets of an EasyNotePair. One EasyNotePair has one control widget. You can create multiple note widgets in an EasyNotePair.</p>
+        <div class='code'><code>const control = pair.controller</code>
+        <br><code>const note = pair.createNoteWidget('text-of-widget', 'style-of-note-widget') //create a block note element</code>
+        <br><code>const inlineNote = pair.createNoteLine('text-of-widget', 'style-of-note-widget') //create an inline note element</code>
+        </div>
+        <h1 id='use'>
+            How to Use
+        </h1>
+        <p>This part shows all users how to use EasyNote widgets to take notes in a website.</p>
+        <p>There are two modes of a control widget. You can switch between highlight mode and note mode.
+            In highlight mode, you can use two colors to highlight texts at the same time. And you can change those two colors using the appropriate colorpicker.
+             To switch the color between the two, click on the colorpicker with the color you like. If you want to delete any highlights, simply select inside that area.
+              Selecting across the area with notes inside won't delete the highlight.
+              In note mode, you can select an area and click add note button. Hover on that area and you can type your notes in the pop-up box. To delete a note, click the note and click delete note button.
+               Please be aware that you can only have notes completely inside a highlighted area or completely outside highlighted areas and you can't start or end your highlighting in the middle of a note.
+        </p>
+        <p>A few <a href="../pub/LandingPage.html">examples</a> are available.</p>
+        <h1 id='api'>
+            API
+        </h1>
+        <h3>Constructors</h3>
+        <p>EasyNotePair</p>
+        <h3>EasyNotePair's Property</h3>
+        <p>name</p>
+    </main>
+</body>
+    

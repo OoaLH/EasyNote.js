@@ -1,9 +1,9 @@
 
 body {
   font: 1.2em "Fira Sans", sans-serif;
-      background: #B24592;  /* fallback for old browsers */
-      background: -webkit-linear-gradient(to right, #F15F79, #B24592);  /* Chrome 10-25, Safari 5.1-6 */
-      background: linear-gradient(to right, #F15F79, #B24592); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #B24592;
+  background: -webkit-linear-gradient(to right, #F15F79, #B24592);
+  background: linear-gradient(to right, #F15F79, #B24592);
   }
 
   a {
@@ -91,16 +91,16 @@ body {
   #contacts {
       margin: auto;
       padding: 20px;
-      background: #B24592;  /* fallback for old browsers */
-      background: -webkit-linear-gradient(to right, #F15F79, #B24592);  /* Chrome 10-25, Safari 5.1-6 */
-      background: linear-gradient(to right, #F15F79, #B24592); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      background: #B24592;
+      background: -webkit-linear-gradient(to right, #F15F79, #B24592);
+      background: linear-gradient(to right, #F15F79, #B24592);
       width: 90%;
       transition: all 1.7s ease;
       border-radius: 10px;
       text-align: center;
   }
   #contacts:hover{
-      background: #B24592;  /* fallback for old browsers */
+      background: #B24592;
       box-shadow: 5px 5px 40px #F15F79;
   }
 

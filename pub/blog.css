@@ -1,7 +1,5 @@
-/* resets */
 body { margin:0px; padding:0px; }
 
-/* main */
 header {
     height: 360px;
     z-index: 10;
@@ -25,7 +23,6 @@ header h1 {
     left: 2rem;
 }
 
-/* demo content */
 body { 
     color: #292f36;
     font-family: helvetica;
@@ -56,22 +53,4 @@ p img {
 text-align: center;
 }
 
-@media only screen and (max-width: 960px) {
-    .content{ 
-        padding: 2rem 0;
-    }
-    article {
-        float: none;
-        margin: 0 auto;
-        width: 96%;
-    }
-    article:last-of-type {  
-        margin-bottom: 3rem;
-    }
-    aside {  
-        float: none;
-        text-align: center;
-        width: 100%;
-    }
-}
 

@@ -7,8 +7,8 @@ body {
 
 header {
     padding: 10px;
-    background: #B24592;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #F15F79, #B24592);  /* Chrome 10-25, Safari 5.1-6 */
+    background: #B24592;
+    background: -webkit-linear-gradient(to right, #F15F79, #B24592);
     background: linear-gradient(to right, #F15F79, #B24592);
     height: 150px;
     text-align: center;
