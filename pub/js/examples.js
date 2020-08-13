@@ -1,16 +1,14 @@
-const pair1 = new EasyNotePair('a')
-const pair2 = new EasyNotePair('b', 'background: rgba(134, 204, 236, 0.445);', true)
+const pair1 = new EasyNotePair('a', 'background: #B24592;')
+const pair2 = new EasyNotePair('b', 'background: #B24592;', true)
 const control1 = pair1.controller
 const control2 = pair2.controller
 
-const text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-
-const note1 = pair1.createNoteWidget(text)
-const note2 = pair1.createNoteWidget(text)
-const note3 = pair2.createNoteWidget(text, 'color: rgba(62, 100, 117, 0.445)')
-const noteInline1 = pair1.createNoteLine('You can take notes in sentences of green color. ', 'color: green')
+const note1 = pair1.createNoteWidget("The chronicle of Charles II begins with his father, Charles I. Charles I ascended the English throne in 1625 and soon married a French Catholic princess, Henrietta Maria, who was not well liked by English Protestants because she openly practiced Catholicism during her husband’s reign. The most outspoken Protestants, the Puritans, had a strong voice in Parliament in the 1620s, and they strongly opposed the king’s marriage and his ties to Catholicism. When Parliament tried to contest his edicts, including the king’s efforts to impose taxes without Parliament’s consent, Charles I suspended Parliament in 1629 and ruled without one for the next eleven years. ")
+const note2 = pair1.createNoteWidget("Charles II hoped to establish English control of the area between Virginia and Spanish Florida. To that end, he issued a royal charter in 1663 to eight trusted and loyal supporters, each of whom was to be a feudal-style proprietor of a region of the province of Carolina. ")
+const note3 = pair2.createNoteWidget("In 1686, James II applied his concept of a centralized state to the colonies by creating an enormous colony called the Dominion of New England. The Dominion included all the New England colonies (Massachusetts, New Hampshire, Plymouth, Connecticut, New Haven, and Rhode Island) and in 1688 was enlarged by the addition of New York and New Jersey. James placed in charge Sir Edmund Andros, a former colonial governor of New York. Loyal to James II and his family, Andros had little sympathy for New Englanders. His regime caused great uneasiness among New England Puritans when it called into question the many land titles that did not acknowledge the king and imposed fees for their reconfirmation. Andros also committed himself to enforcing the Navigation Acts, a move that threatened to disrupt the region’s trade, which was based largely on smuggling. ")
+const noteInline1 = pair1.createNoteLine('Analyze the causes and consequences of the Restoration. ', 'color: green')
 const noteInline2 = pair1.createNoteLine('Try taking notes here. ', 'color: green')
-const noteInline3 = pair1.createNoteLine('You can also take notes here. ', 'color: green')
+const noteInline3 = pair1.createNoteLine('(You can take notes in sentences of green color in this section) ', 'color: green')
 const article1 = document.getElementById('article1')
 const article2 = document.getElementById('article2')
 const section1 = document.getElementById('section1')

@@ -158,7 +158,7 @@ EasyNotePair.prototype = {
                     if (!item.active) {
                         item.active = true
                         item.addEventListener('click', function() {
-                            if (this.classList.contains('to-be-deleted')) {
+                            if (this.classList && this.classList.contains('to-be-deleted')) {
                                 this.classList.remove('to-be-deleted')
                                 document.getElementById('deleteButton'+name).disabled = true
                             }
@@ -187,11 +187,11 @@ EasyNotePair.prototype = {
             const deleting = Array.from(document.getElementsByClassName('to-be-deleted'))[0]
             deleting.removeChild(deleting.lastChild)
             let text = deleting.textContent.trim()
-            if ((deleting.previousSibling == null || deleting.previousSibling.className == 'note' || deleting.previousSibling.classList.contains('highlighted'+name)) && deleting.nextSibling != null && deleting.nextSibling.className != 'note' && deleting.nextSibling.classList.contains('highlighted'+name)==false) {
+            if ((deleting.previousSibling == null || deleting.previousSibling.className == 'note' || (deleting.previousSibling.classList && deleting.previousSibling.classList.contains('highlighted'+name))) && deleting.nextSibling != null && deleting.nextSibling.className != 'note' && (deleting.nextSibling.classList==null || deleting.nextSibling.classList.contains('highlighted'+name)==false)) {
                 deleting.nextSibling.textContent = text + deleting.nextSibling.textContent
                 deleting.parentNode.removeChild(deleting)
             }
-            else if ((deleting.nextSibling == null || deleting.nextSibling.className == 'note' || deleting.nextSibling.classList.contains('highlighted'+name)) && deleting.previouseSibling != null && deleting.previousSibling.className != 'note' && deleting.previousSibling.classList.contains('highlighted'+name)==false) {
+            else if ((deleting.nextSibling == null || deleting.nextSibling.className == 'note' || (deleting.nextSibling.classList && deleting.nextSibling.classList.contains('highlighted'+name))) && deleting.previouseSibling != null && deleting.previousSibling.className != 'note' && (deleting.previousSibling.classList==null || deleting.previousSibling.classList.contains('highlighted'+name)==false)) {
                 deleting.previousSibling.textContent += text
                 deleting.parentNode.removeChild(deleting)
             }
@@ -319,7 +319,7 @@ EasyNotePair.prototype = {
             }
         }
         else {
-            if (range.startContainer == range.endContainer && range.startContainer.parentElement.classList.contains('highlighted'+name)) {
+            if (range.startContainer == range.endContainer && range.startContainer.parentElement.classList && range.startContainer.parentElement.classList.contains('highlighted'+name)) {
                 const nodeText = range.startContainer.parentNode.innerHTML;
                 const prefix = nodeText.substring(0, startOffset);
                 const middle = nodeText.substring(startOffset, endOffset);
@@ -347,7 +347,7 @@ EasyNotePair.prototype = {
                               }
                           } }
        
-            else if (!range.startContainer.parentElement.classList.contains('note') && !range.endContainer.parentElement.classList.contains('note') && range.startContainer.parentElement.classList.contains('highlighted'+name)==false && range.endContainer.parentElement.classList.contains('highlighted'+name)==false) {
+            else if (!range.startContainer.parentElement.classList.contains('note') && !range.endContainer.parentElement.classList.contains('note') && (range.startContainer.parentElement.classList==null || range.startContainer.parentElement.classList.contains('highlighted'+name)==false) && (range.endContainer.parentElement.classList==null || range.endContainer.parentElement.classList.contains('highlighted'+name)==false)) {
                 let isStart = false;
                 let startNode
                 let endNode
@@ -379,11 +379,11 @@ EasyNotePair.prototype = {
                     }
                     else {
                         
-                    if (isStart == true && childNodes[idx].classList.contains("highlighted"+name)) {
+                    if (isStart == true && childNodes[idx].classList && childNodes[idx].classList.contains("highlighted"+name)) {
                         span += childNodes[idx].innerHTML
                         childNodes[idx].replaceWith("")
                     }
-                    else if (isStart == true && childNodes[idx].classList.contains('note')) {
+                    else if (isStart == true && childNodes[idx].classList && childNodes[idx].classList.contains('note')) {
                         span += ("<a class='note'>" + childNodes[idx].innerHTML + "</a>")
                         childNodes[idx].replaceWith("")
                     }
@@ -448,7 +448,7 @@ EasyNotePair.prototype = {
         const children = []
         this.noteWidgets.forEach(element => {
             element.childNodes.forEach(function(item) {
-                if (item.classList.contains('highlighted'+name)) {
+                if (item.classList && item.classList.contains('highlighted'+name)) {
                     children.push(item)
                 }
             })
@@ -493,7 +493,7 @@ EasyNotePair.prototype = {
         const name = widget.name
         const cloneWidget = widget.cloneNode(true)
         cloneWidget.childNodes.forEach(function(child) {
-            if (child.classList.contains('highlighted'+name)) {
+            if (child.classList && child.classList.contains('highlighted'+name)) {
                 child.childNodes.forEach(function(highlightChild) {
                     if (highlightChild.classList != null && highlightChild.classList.contains('note')) {
                         highlightChild.childNodes.forEach(function(note) {
@@ -513,7 +513,7 @@ EasyNotePair.prototype = {
         const noteArea = []
         const notes = Array.from(document.getElementsByClassName('note'))
         notes.forEach(function(note) {
-            if (note.parentNode.name == name || note.parentNode.classList.contains('highlighted'+name)) {
+            if (note.parentNode.name == name || (note.parentNode.classList && note.parentNode.classList.contains('highlighted'+name))) {
                 const cloneNote = note.cloneNode(true)
                 cloneNote.removeChild(cloneNote.lastChild)
                 noteArea.push(cloneNote.textContent)
@@ -545,8 +545,9 @@ EasyNotePair.prototype = {
 
     getNoteArea: function() {
         const noteArea = []
+        const context = this
         this.noteWidgets.forEach(function(widget) {
-            noteArea.push.apply(noteArea, getNoteAreaOfWidget(widget))
+            noteArea.push.apply(noteArea, context.getNoteAreaOfWidget(widget))
         })
         return noteArea
     },
@@ -555,7 +556,7 @@ EasyNotePair.prototype = {
         const noteContent = []
         const notes = Array.from(document.getElementsByClassName('note'))
         notes.forEach(function(note) {
-            if (note.parentNode.name == name || note.parentNode.classList.contains('highlighted'+name)) {
+            if (note.parentNode.name == name || (note.parentNode.classList && note.parentNode.classList.contains('highlighted'+name))) {
                 const cloneNote = note.cloneNode(true)
                 const content = cloneNote.lastChild.textContent
                 cloneNote.removeChild(cloneNote.lastChild)
@@ -596,8 +597,9 @@ EasyNotePair.prototype = {
 
     getNoteContent: function() {
         const noteContent = []
+        const context = this
         this.noteWidgets.forEach(function(widget) {
-            noteContent.push.apply(noteContent, getNoteContentOfWidget(widget))
+            noteContent.push.apply(noteContent, context.getNoteContentOfWidget(widget))
         })
         return noteContent
     },

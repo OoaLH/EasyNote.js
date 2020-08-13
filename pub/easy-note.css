@@ -50,11 +50,11 @@
 
 .mode-picker:hover ~ div.explanation{
   border: 1px solid black;
-  height: 50px;
+  height: 60px;
   padding: 10px;
-  transform:translateY(-70px);
+  transform:translateY(-75px);
   border-radius: 5px;
-
+  overflow-y: scroll;
 }
 
 .explanation{

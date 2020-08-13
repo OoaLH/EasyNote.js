@@ -2,20 +2,31 @@ body {
     margin: 0;
     padding: 0;
     width: 100%;
+    background-color: rgb(240, 238, 238);
 }
 header {
     padding: 10px;
-    background-color: rgba(134, 204, 236, 0.445);
+    background: #B24592;  /* fallback for old browsers */
+      background: -webkit-linear-gradient(to right, #F15F79, #B24592);  /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to right, #F15F79, #B24592);
+    height: 150px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+#header {
+    font-size: 50px;
+    color: white;
 }
 footer {
+    font-family: Arial, Helvetica, sans-serif;
     padding: 10px;
-    background-color: rgba(134, 204, 236, 0.445);
+    background: #B24592;  /* fallback for old browsers */
+      background: -webkit-linear-gradient(to right, #F15F79, #B24592);  /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to right, #F15F79, #B24592);
+      color: white;
 }
 #articles {
     padding-top: 10px;
     padding-bottom: 10px;
     margin: 10px;
-}
-#article2 {
-    color: rgba(62, 100, 117, 0.445);
 }
