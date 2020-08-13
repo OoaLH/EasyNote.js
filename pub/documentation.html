@@ -40,16 +40,25 @@
              To switch the color between the two, click on the colorpicker with the color you like. If you want to delete any highlights, simply select inside that area.
               Selecting across the area with notes inside won't delete the highlight.
               In note mode, you can select an area and click add note button. Hover on that area and you can type your notes in the pop-up box. To delete a note, click the note and click delete note button.
-               Please be aware that you can only have notes completely inside a highlighted area or completely outside highlighted areas and you can't start or end your highlighting in the middle of a note.
+               Please be aware that you can only have notes completely inside a highlighted area or completely outside highlighted areas and you can't start or end your highlighting in the middle of a note. 
+               Clicking copy highlights button will copy all your highlighted area of note widgets under the control widget you are using. You can clear all highlights and notes by clicking wipe all button.
         </p>
         <p>A few <a href="../LandingPage.html">examples</a> are available.</p>
         <h1 id='api'>
             API
         </h1>
-        <h3>Constructors</h3>
-        <p>EasyNotePair</p>
-        <h3>EasyNotePair's Property</h3>
-        <p>name</p>
+        <h2>Constructor</h2>
+        <h3>EasyNotePair(name, controllerStyle='', copy=true)</h3>
+        <p>Creates an EasyNotePair object with a unique name and its controller widget with controllerStyle. The value copy indicates whether copy highlights feature is enabled or not. Returns the EasyNotePair object.</p>
+        <h2>EasyNotePair's Property</h2>
+        <h3>name</h3>
+        <p>A unique string to identify every EasyNotePair.</p>
+        <h3>colorPicker</h3>
+        <p>A number showing which colorPicker on the control widget is being used by the user.</p>
+        <h3>controller</h3>
+        <p>The control widget of the EasyNotePair. Returns a DOM element.</p>
+        <h3>noteWidgets</h3>
+        <p>A list of all note widgets</p>
     </main>
 </body>
     
