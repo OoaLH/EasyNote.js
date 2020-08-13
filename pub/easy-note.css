@@ -101,8 +101,12 @@ input:checked + .mode-picker-label:before {
   margin:0 5px;
   outline: none;
   height: 29px;
+  border-radius: 5px;
 }
-
+.color-picker-focused {
+  box-shadow: 2px 2px 11px white;
+  border: 3px solid;
+}
 .button {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   border: 2px solid;

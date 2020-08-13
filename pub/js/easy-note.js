@@ -76,17 +76,30 @@ EasyNotePair.prototype = {
         colorPicker.value = '#FFFF00'
         this.color = colorPicker.value
         colorPicker.addEventListener ('input', function() {
-            document.getElementById('highlightcss'+name).innerText = '.highlighted'+name+'{background:'+colorPicker.value+';} .highlighted2'+name+'{background:'+colorPicker2.value+';}'
+            document.getElementById('highlightcss'+name).innerText = '.one'+name+'{background:'+colorPicker.value+';} .two'+name+'{background:'+colorPicker2.value+';}'
+            colorPicker.style.borderColor = colorPicker.value
         }, false);
+        colorPicker.onclick = function() {
+            colorPicker.className = 'color-picker-focused'
+            colorPicker.style.borderColor = colorPicker.value
+            colorPicker2.className = ''
+            context.colorPicker = 1
+        }
         control.appendChild(colorPicker)
-
         const colorPicker2 = document.createElement('input')
         colorPicker2.type = 'color'
         colorPicker2.value = '#FFFF00'
         //this.color = colorPicker.value
         colorPicker2.addEventListener ('input', function() {
-            document.getElementById('highlightcss'+name).innerText = '.highlighted'+name+'{background:'+colorPicker.value+';} .highlighted2'+name+'{background:'+colorPicker2.value+';}'           
+            document.getElementById('highlightcss'+name).innerText = '.one'+name+'{background:'+colorPicker.value+';} .two'+name+'{background:'+colorPicker2.value+';}'  
+            colorPicker2.style.borderColor = colorPicker2.value         
         }, false);
+        colorPicker2.onclick = function() {
+            colorPicker2.className = 'color-picker-focused'
+            colorPicker2.style.borderColor = colorPicker2.value
+            colorPicker.className = ''
+            context.colorPicker = 2
+        }
         control.appendChild(colorPicker2)
 
         const copyButton = document.createElement('button')
@@ -177,11 +190,11 @@ EasyNotePair.prototype = {
             const deleting = Array.from(document.getElementsByClassName('to-be-deleted'))[0]
             deleting.removeChild(deleting.lastChild)
             let text = deleting.textContent.trim()
-            if ((deleting.previousSibling == null || deleting.previousSibling.className == 'note' || deleting.previousSibling.className == 'highlighted'+name) && deleting.nextSibling != null && deleting.nextSibling.className != 'note' && deleting.nextSibling.className != 'highlighted'+name) {
+            if ((deleting.previousSibling == null || deleting.previousSibling.className == 'note' || deleting.previousSibling.classList.contains('highlighted'+name)) && deleting.nextSibling != null && deleting.nextSibling.className != 'note' && deleting.nextSibling.classList.contains('highlighted'+name)==false) {
                 deleting.nextSibling.textContent = text + deleting.nextSibling.textContent
                 deleting.parentNode.removeChild(deleting)
             }
-            else if ((deleting.nextSibling == null || deleting.nextSibling.className == 'note' || deleting.nextSibling.className == 'highlighted'+name) && deleting.previouseSibling != null && deleting.previousSibling.className != 'note' && deleting.previousSibling.className != 'highlighted'+name) {
+            else if ((deleting.nextSibling == null || deleting.nextSibling.className == 'note' || deleting.nextSibling.classList.contains('highlighted'+name)) && deleting.previouseSibling != null && deleting.previousSibling.className != 'note' && deleting.previousSibling.classList.contains('highlighted'+name)==false) {
                 deleting.previousSibling.textContent += text
                 deleting.parentNode.removeChild(deleting)
             }
@@ -225,8 +238,9 @@ EasyNotePair.prototype = {
         note.name = name
         note.innerHTML = text
         note.style = style
+        note.context = this
         if (document.getElementById('highlightcss'+name) == null) {
-            const css = '.highlighted'+name+'{background:'+this.color+';} .highlighted2'+name+'{background:'+this.color+';}'
+            const css = '.one'+name+'{background:'+this.color+';} .two'+name+'{background:'+this.color+';}'
             const head = document.querySelector('head')
             const newStyle = document.createElement('style')
             newStyle.id = 'highlightcss'+name
@@ -251,8 +265,9 @@ EasyNotePair.prototype = {
         note.name = name
         note.innerHTML = text
         note.style = style
+        note.context = this
         if (document.getElementById('highlightcss'+name) == null) {
-            const css = '.highlighted'+name+'{background:'+this.color+';} .highlighted2'+name+'{background:'+this.color+';}'
+            const css = '.one'+name+'{background:'+this.color+';} .two'+name+'{background:'+this.color+';}'
             const head = document.querySelector('head')
             const newStyle = document.createElement('style')
             newStyle.id = 'highlightcss'+name
@@ -276,6 +291,7 @@ EasyNotePair.prototype = {
         if (selection_text==''){
           return
         }
+        const colorPicker = this.context.colorPicker
         const childNodes = this.childNodes;
         const range = window.getSelection().getRangeAt(0);
         const startOffset = range.startOffset;
@@ -284,7 +300,7 @@ EasyNotePair.prototype = {
             return
         }
         if (childNodes.length == 1){
-            if (childNodes[0].className == 'highlighted'+name) {
+            if (childNodes[0].classList && childNodes[0].classList.contains('highlighted'+name)) {
                 const nodeText = childNodes[0].textContent.trim();
                 const prefix = nodeText.substring(0, startOffset);
                 const middle = nodeText.substring(startOffset, endOffset)
@@ -294,13 +310,19 @@ EasyNotePair.prototype = {
             else {
                 const nodeText = childNodes[0].textContent.trim();
                 const prefix = nodeText.substring(0, startOffset);
-                const middle = "<span class='highlighted"+name+"'>" + nodeText.substring(startOffset, endOffset) + "</span>";
+                let middle
+                if (colorPicker === 1) {
+                    middle = "<span class='highlighted"+name+" one"+name+"'>" + nodeText.substring(startOffset, endOffset) + "</span>";
+                }
+                else {
+                    middle = "<span class='highlighted"+name+" two"+name+"'>" + nodeText.substring(startOffset, endOffset) + "</span>";
+                }
                 const suffix = nodeText.substring(endOffset, nodeText.length);
                 childNodes[0].parentNode.innerHTML = prefix + middle + suffix;
             }
         }
         else {
-            if (range.startContainer == range.endContainer && range.startContainer.parentElement.className == 'highlighted'+name) {
+            if (range.startContainer == range.endContainer && range.startContainer.parentElement.classList.contains('highlighted'+name)) {
                 const nodeText = range.startContainer.parentNode.innerHTML;
                 const prefix = nodeText.substring(0, startOffset);
                 const middle = nodeText.substring(startOffset, endOffset);
@@ -315,14 +337,20 @@ EasyNotePair.prototype = {
                     if (!range.startContainer.parentElement.classList.contains('note') && (childNodes[idx] == range.startContainer || childNodes[idx] == range.startContainer.parentNode)){
                         const nodeText = childNodes[idx].textContent;
                         const prefix = nodeText.substring(0, startOffset);
-                        const middle = "<span class='highlighted"+name+"'>" + nodeText.substring(startOffset, endOffset) + "</span>";
+                        let middle
+                        if (colorPicker === 1) {
+                            middle = "<span class='highlighted"+name+" one"+name+"'>" + nodeText.substring(startOffset, endOffset) + "</span>";
+                        }
+                        else {
+                            middle = "<span class='highlighted"+name+" two"+name+"'>" + nodeText.substring(startOffset, endOffset) + "</span>";
+                        }
                         const suffix = nodeText.substring(endOffset, nodeText.length);
                         $(childNodes[idx]).replaceWith( prefix + middle + suffix);
                                   
                               }
                           } }
        
-            else if (!range.startContainer.parentElement.classList.contains('note') && !range.endContainer.parentElement.classList.contains('note') && range.startContainer.parentElement.className != 'highlighted'+name && range.endContainer.parentElement.className != 'highlighted'+name) {
+            else if (!range.startContainer.parentElement.classList.contains('note') && !range.endContainer.parentElement.classList.contains('note') && range.startContainer.parentElement.classList.contains('highlighted'+name)==false && range.endContainer.parentElement.classList.contains('highlighted'+name)==false) {
                 let isStart = false;
                 let startNode
                 let endNode
@@ -333,7 +361,14 @@ EasyNotePair.prototype = {
                         startNode = childNodes[idx]
                         const nodeText = childNodes[idx].textContent;
                         const prefix = nodeText.substring(0, startOffset);
-                        const suffix = "<span class='highlighted"+name+"'>" + nodeText.substring(startOffset, nodeText.length);
+                        let suffix
+                        if (colorPicker === 1) {
+                            suffix = "<span class='highlighted"+name+" one"+name+"'>" + nodeText.substring(startOffset, nodeText.length)
+                        }
+                        else {
+                            suffix = "<span class='highlighted"+name+" two"+name+"'>" + nodeText.substring(startOffset, nodeText.length)
+                        }
+
                         span = prefix + suffix
                     }
                     else if (childNodes[idx] == range.endContainer || childNodes[idx] == range.endContainer.parentNode) {
@@ -347,7 +382,7 @@ EasyNotePair.prototype = {
                     }
                     else {
                         
-                    if (isStart == true && childNodes[idx].className == "highlighted"+name) {
+                    if (isStart == true && childNodes[idx].classList.contains("highlighted"+name)) {
                         span += childNodes[idx].innerHTML
                         childNodes[idx].replaceWith("")
                     }
@@ -366,8 +401,19 @@ EasyNotePair.prototype = {
                 $(endNode).replaceWith(span);
         }
     }
+        let item = 0
+        while (item<this.children.length) {
+            if (this.children[item].classList && this.children[item].nextSibling.classList && this.children[item].classList.value == this.children[item].nextSibling.classList.value) {
+                this.children[item].innerHTML += this.children[item].nextSibling.innerHTML
+                this.removeChild(this.children[item].nextSibling)
+                item -= 1
+            }
+            item += 1
+        }
+        /*
         const reg = new RegExp("</span><span class=\"highlighted"+name+"\">","g");
         this.innerHTML = this.innerHTML.replace(reg, "")
+        */
         const popups = Array.from(document.getElementsByClassName('pop-up'))
         popups.forEach(function(item) {
             if (!item.active) {
@@ -405,7 +451,7 @@ EasyNotePair.prototype = {
         const children = []
         this.noteWidgets.forEach(element => {
             element.childNodes.forEach(function(item) {
-                if (item.className == 'highlighted'+name) {
+                if (item.classList.contains('highlighted'+name)) {
                     children.push(item)
                 }
             })
@@ -450,7 +496,7 @@ EasyNotePair.prototype = {
         const name = widget.name
         const cloneWidget = widget.cloneNode(true)
         cloneWidget.childNodes.forEach(function(child) {
-            if (child.className == 'highlighted'+name) {
+            if (child.classList.contains('highlighted'+name)) {
                 child.childNodes.forEach(function(highlightChild) {
                     if (highlightChild.classList != null && highlightChild.classList.contains('note')) {
                         highlightChild.childNodes.forEach(function(note) {
@@ -470,7 +516,7 @@ EasyNotePair.prototype = {
         const noteArea = []
         const notes = Array.from(document.getElementsByClassName('note'))
         notes.forEach(function(note) {
-            if (note.parentNode.name == name || note.parentNode.className == 'highlighted'+name) {
+            if (note.parentNode.name == name || note.parentNode.classList.contains('highlighted'+name)) {
                 const cloneNote = note.cloneNode(true)
                 cloneNote.removeChild(cloneNote.lastChild)
                 noteArea.push(cloneNote.textContent)
@@ -512,7 +558,7 @@ EasyNotePair.prototype = {
         const noteContent = []
         const notes = Array.from(document.getElementsByClassName('note'))
         notes.forEach(function(note) {
-            if (note.parentNode.name == name || note.parentNode.className == 'highlighted'+name) {
+            if (note.parentNode.name == name || note.parentNode.classList.contains('highlighted'+name)) {
                 const cloneNote = note.cloneNode(true)
                 const content = cloneNote.lastChild.textContent
                 cloneNote.removeChild(cloneNote.lastChild)
