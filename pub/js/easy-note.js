@@ -2,7 +2,6 @@
 
 function EasyNotePair(name, controllerStyle='', copy=true) {
     this.name = name
-    this.color = ''
     this.colorPicker = 1
     this.controller = this.controlWidget(name, controllerStyle, copy, this)
     this.noteWidgets = []
@@ -74,7 +73,6 @@ EasyNotePair.prototype = {
         const colorPicker = document.createElement('input')
         colorPicker.type = 'color'
         colorPicker.value = '#FFFF00'
-        this.color = colorPicker.value
         colorPicker.addEventListener ('input', function() {
             document.getElementById('highlightcss'+name).innerText = '.one'+name+'{background:'+colorPicker.value+';} .two'+name+'{background:'+colorPicker2.value+';}'
             colorPicker.style.borderColor = colorPicker.value
@@ -88,8 +86,7 @@ EasyNotePair.prototype = {
         control.appendChild(colorPicker)
         const colorPicker2 = document.createElement('input')
         colorPicker2.type = 'color'
-        colorPicker2.value = '#FFFF00'
-        //this.color = colorPicker.value
+        colorPicker2.value = '#00FFFF'
         colorPicker2.addEventListener ('input', function() {
             document.getElementById('highlightcss'+name).innerText = '.one'+name+'{background:'+colorPicker.value+';} .two'+name+'{background:'+colorPicker2.value+';}'  
             colorPicker2.style.borderColor = colorPicker2.value         
@@ -240,7 +237,7 @@ EasyNotePair.prototype = {
         note.style = style
         note.context = this
         if (document.getElementById('highlightcss'+name) == null) {
-            const css = '.one'+name+'{background:'+this.color+';} .two'+name+'{background:'+this.color+';}'
+            const css = '.one'+name+'{background: yellow;} .two'+name+'{background: aqua;}'
             const head = document.querySelector('head')
             const newStyle = document.createElement('style')
             newStyle.id = 'highlightcss'+name
@@ -267,7 +264,7 @@ EasyNotePair.prototype = {
         note.style = style
         note.context = this
         if (document.getElementById('highlightcss'+name) == null) {
-            const css = '.one'+name+'{background:'+this.color+';} .two'+name+'{background:'+this.color+';}'
+            const css = '.one'+name+'{background: yellow;} .two'+name+'{background: aqua;}'
             const head = document.querySelector('head')
             const newStyle = document.createElement('style')
             newStyle.id = 'highlightcss'+name
