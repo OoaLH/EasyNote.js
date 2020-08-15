@@ -49,16 +49,35 @@
         </h1>
         <h2>Constructor</h2>
         <h3>EasyNotePair(name, controllerStyle='', copy=true)</h3>
-        <p>Creates an EasyNotePair object with a unique name and its controller widget with controllerStyle. The value copy indicates whether copy highlights feature is enabled or not. Returns the EasyNotePair object.</p>
-        <h2>EasyNotePair's Property</h2>
+        <p>Creates an EasyNotePair object with a unique name and its controller widget with style of <code class="code">controllerStyle</code>. The value of <code class="code">copy</code> indicates whether copy highlights feature is enabled or not. Returns the EasyNotePair object.</p>
+        <h2>EasyNotePair Property</h2>
         <h3>name</h3>
         <p>A unique string to identify every EasyNotePair.</p>
         <h3>colorPicker</h3>
-        <p>A number showing which colorPicker on the control widget is being used by the user.</p>
+        <p>A number showing which colorPicker on the control widget is being used by the user. It is set to 1 on default.</p>
         <h3>controller</h3>
         <p>The control widget of the EasyNotePair. Returns a DOM element.</p>
         <h3>noteWidgets</h3>
-        <p>A list of all note widgets</p>
+        <p>An array of all note widget DOM elements.</p>
+        <h2>EasyNotePair Methods</h2>
+        <h3>.controlWidget(name, style='', copy=true)</h3>
+        <p></p>
+        <h3>.createNoteWidget(text, style='')</h3>
+        <h3>.createNoteLine(text, style='')</h3>
+        <h3>.highlightFunc()</h3>
+        <h3>.getHighlights()</h3>
+        <h3>.getAllHighlightsOnPageForName(name)</h3>
+        <h3>.getHighlightsOfWidget(widget)</h3>
+        <h3>.getNoteAreaOnPageForName(name)</h3>
+        <h3>.getNoteAreaOfWidget(widget)</h3>
+        <h3>.getNoteArea()</h3>
+        <h3>.getNoteContentOnPageForName(name)</h3>
+        <h3>.getNoteContentOfWidget(widget)</h3>
+        <h3>.getNoteContent()</h3>
+        <h3>.changeNoteWidgetStyle(style)</h3>
+        <h3>.changeControllerStyle(style)</h3>
+        <h3>.changeControllerButtonStyle(addNoteButtonStyle='', copyButtonStyle='', deleteButtonStyle='', wipeButtonStyle='')</h3>
+        <h3>.changeModePickerStyle(textColor='', modePickerBackgroundColor='', highlightModeButtonColor='', noteModeButtonColor='')</h3>
     </main>
 </body>
     

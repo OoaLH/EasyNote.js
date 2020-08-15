@@ -3,16 +3,17 @@
 function EasyNotePair(name, controllerStyle='', copy=true) {
     this.name = name
     this.colorPicker = 1
-    this.controller = this.controlWidget(name, controllerStyle, copy, this)
+    this.controller = this.controlWidget(name, controllerStyle, copy)
     this.noteWidgets = []
 }
 
 EasyNotePair.prototype = {
 
-    controlWidget: function(name, style='', copy=true, context) {
+    controlWidget: function(name, style='', copy=true) {
         if (this.controller) {
             console.log("can't create more than one control widget in one easy-note pair.")
         }
+        const context = this
         const control = document.createElement('div')
         control.className = 'control'
         control.style = style
@@ -603,7 +604,7 @@ EasyNotePair.prototype = {
         })
         return noteContent
     },
-    changeNotesStyle: function(style) {
+    changeNoteWidgetStyle: function(style) {
         this.noteWidgets.forEach(function(widget) {
             widget.style = style
         })
