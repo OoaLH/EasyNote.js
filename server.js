@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
 	//res.send('This should be the root route!')
 
 	//sending some HTML
-	res.sendFile('LandingPage.html')
+	res.sendFile('LandingPage.html', { root:(__dirname, '/pub') })
 })
 
 // Error codes
