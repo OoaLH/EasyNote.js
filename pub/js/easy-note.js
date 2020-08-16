@@ -12,6 +12,7 @@ EasyNotePair.prototype = {
     controlWidget: function(style='', copy=true) {
         if (this.controller) {
             console.log("can't create more than one control widget in one easy-note pair.")
+            return
         }
         const context = this
         const name = this.name
