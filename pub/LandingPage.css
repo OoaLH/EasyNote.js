@@ -4,10 +4,13 @@ body {
   background: #B24592;
   background: -webkit-linear-gradient(to right, #F15F79, #B24592);
   background: linear-gradient(to right, #F15F79, #B24592);
+  margin: 0;
+  padding: 0;
   }
 
   a {
     color: #00ccff;
+    text-decoration:none;
   }
   #typer-size{
       font-size: 40px;
@@ -24,13 +27,7 @@ body {
     height: 100vh;
     color: white;
   }
-  header #particles {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-  }
+
   header .vert-text {
     display: table-cell;
     position: relative;
@@ -104,7 +101,33 @@ body {
       box-shadow: 5px 5px 40px #F15F79;
   }
 
-  
+  footer {
+    background: #B24592;
+    font-family: sans-serif;
+    color: white;
+    margin: auto;
+    margin-top: 50px;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #footer1 {
+    padding: 20px;
+    padding-left: 50px;
+    padding-right: 50px;
+    flex-grow: 2;
+  }
+
+  #footer2 {
+    padding: 20px;
+    padding-left: 50px;
+    padding-right: 50px;
+    text-align: left;
+    flex-grow: 1;
+  }
   
 
   

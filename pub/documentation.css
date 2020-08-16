@@ -1,7 +1,3 @@
-
-
-/* base demo layout styles
----------------------------*/
 * {
 	box-sizing: border-box;
 }
@@ -10,10 +6,6 @@ body {
   min-height: 100vh;
 }
 
-
-
-/* header, left nav bar
----------------------------*/
 header {
 	display: block;
 	width: 8.00rem; /* 120px */
@@ -37,9 +29,6 @@ nav a {
     
 }
 
-
-/* main layout
----------------------------*/
 main {
   display: block;
   min-height: 100vh;

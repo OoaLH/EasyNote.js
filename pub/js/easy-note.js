@@ -80,12 +80,12 @@ EasyNotePair.prototype = {
             document.getElementById('highlightcss'+name).innerText = '.one'+name+'{background:'+colorPicker.value+';} .two'+name+'{background:'+colorPicker2.value+';}'
             colorPicker.style.borderColor = colorPicker.value
         }, false);
-        colorPicker.onclick = function() {
-            colorPicker.className = 'color-picker-focused'
+        colorPicker.addEventListener('click', function() {
+            $(this).addClass("color-picker-focused").siblings().removeClass('color-picker-focused')
             colorPicker.style.borderColor = colorPicker.value
             colorPicker2.className = ''
             context.colorPicker = 1
-        }
+        })
         control.appendChild(colorPicker)
         const colorPicker2 = document.createElement('input')
         colorPicker2.type = 'color'
@@ -94,12 +94,12 @@ EasyNotePair.prototype = {
             document.getElementById('highlightcss'+name).innerText = '.one'+name+'{background:'+colorPicker.value+';} .two'+name+'{background:'+colorPicker2.value+';}'  
             colorPicker2.style.borderColor = colorPicker2.value         
         }, false);
-        colorPicker2.onclick = function() {
-            colorPicker2.className = 'color-picker-focused'
+        colorPicker2.addEventListener('click', function() {
+            $(this).addClass("color-picker-focused").siblings().removeClass('color-picker-focused')
             colorPicker2.style.borderColor = colorPicker2.value
             colorPicker.className = ''
             context.colorPicker = 2
-        }
+        })
         control.appendChild(colorPicker2)
 
         const copyButton = document.createElement('button')
