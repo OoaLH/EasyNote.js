@@ -107,7 +107,7 @@ EasyNotePair.prototype = {
         copyButton.disabled = !copy
         control.appendChild(copyButton)
         copyButton.onclick = function() {
-            const toBeCopied = context.getAllHighlightsOnPageForName(name)
+            const toBeCopied = context.getAllHighlightsOnPage()
             const copy = document.createElement('input')
             copy.id = 'copy'
             copy.value = ''
@@ -471,7 +471,8 @@ EasyNotePair.prototype = {
         return highlights
     },
 
-    getAllHighlightsOnPageForName: function(name) {
+    getAllHighlightsOnPage: function() {
+        const name = this.name
         const highlights = []
         const children = Array.from(document.getElementsByClassName('highlighted'+name))
         children.forEach(function(originalChild) {
@@ -511,7 +512,8 @@ EasyNotePair.prototype = {
         return highlights
     },
 
-    getNoteAreaOnPageForName: function(name) {
+    getNoteAreaOnPage: function() {
+        const name = this.name
         const noteArea = []
         const notes = Array.from(document.getElementsByClassName('note'))
         notes.forEach(function(note) {
@@ -554,7 +556,8 @@ EasyNotePair.prototype = {
         return noteArea
     },
 
-    getNoteContentOnPageForName: function(name) {
+    getNoteContentOnPage: function() {
+        const name = this.name
         const noteContent = []
         const notes = Array.from(document.getElementsByClassName('note'))
         notes.forEach(function(note) {

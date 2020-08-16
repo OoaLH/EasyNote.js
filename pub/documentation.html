@@ -1,5 +1,4 @@
 <head>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
     <link rel="stylesheet" type="text/css" href="documentation.css" />
 </head>
 <body>
@@ -61,32 +60,94 @@
         <p>An array of all note widget DOM elements of an EasyNotePair.</p>
         <h2>EasyNotePair Methods</h2>
         <h3>.controlWidget(name, style='', copy=true)</h3>
-        <p>Creates a control widget of the EasyNotePair object with a specific style and copy highlights feature enabled on default. A EasyNotePair will contain a control widget automatically when created. You don't need to call this method yourself in most cases. And you can't have more than one control widget in one easy-note pair.</p>
+        <p>Creates and returns a control widget of the EasyNotePair object with a specific style and copy highlights feature enabled on default. A EasyNotePair will contain a control widget automatically when created. You don't need to call this method yourself in most cases. And you can't have more than one control widget in one easy-note pair.</p>
         <div class="code">
         <code>const control = pair.controlWidget('{background: red}', true)</code>
         <br><code>//create a control widget of pair with red background and copy highlights feature enabled.</code>
         </div>
         <h3>.createNoteWidget(text, style='')</h3>
-        <p>Creates a note widget as a block element of the EasyNotePair object with specific text and style</p>
+        <p>Creates and returns a note widget as a block element of the EasyNotePair object with specific text and style.</p>
         <div class="code">
         <code>const note = pair.createNoteWidget('Lorem ipsum', '{color: blue}')</code>
         <br><code>//create a note widget as a block element of pair with text 'Lorem ipsum' in blue.</code>
         </div>
         <h3>.createNoteLine(text, style='')</h3>
+        <p>Creates and returns a note widget as an inline element of the EasyNotePair object with specific text and style. You can embed the element in paragraphs that you just want a few sentences to be able to take notes on.</p>
+        <div class="code">
+        <code>const inlineNote = pair.createNoteLine('Lorem ipsum', '{color: blue}')</code>
+        <br><code>//create a note widget as an inline element of pair with text 'Lorem ipsum' in blue.</code>
+        </div>
         <h3>.highlightFunc()</h3>
+        <p>This method handles the highlight and note-taking functionalities.</p>
         <h3>.getHighlights()</h3>
-        <h3>.getAllHighlightsOnPageForName(name)</h3>
+        <p>Returns the highlighted area in an array of strings of all note widgets of the EasyNotePair.</p>
+        <div class="code">
+        <code>const highlightedAreas = pair.getHighlights()</code>
+        </div>
+        <h3>.getAllHighlightsOnPage()</h3>
+        <p>Returns the highlighted area in an array of strings of all note widgets of the EasyNotePair that have been added to window.document object.</p>
+        <div class="code">
+        <code>const highlightedAreaOnPage = pair.getHighlightsOnPage()</code>
+        </div>
         <h3>.getHighlightsOfWidget(widget)</h3>
-        <h3>.getNoteAreaOnPageForName(name)</h3>
-        <h3>.getNoteAreaOfWidget(widget)</h3>
+        <p>Returns the highlighted area in an array of strings of a specific note widget of the EasyNotePair.</p>
+        <div class="code">
+        <code>const highlightedArea = pair.getHighlightsOfWidget(note)</code>
+        </div>
         <h3>.getNoteArea()</h3>
-        <h3>.getNoteContentOnPageForName(name)</h3>
-        <h3>.getNoteContentOfWidget(widget)</h3>
+        <p>Returns the area that the user took notes on in an array of strings of all note widgets of the EasyNotePair.</p>
+        <div class="code">
+        <code>const noteAreas = pair.getNoteArea()</code>
+        </div>
+        <h3>.getNoteAreaOnPage()</h3>
+        <p>Returns the area that the user took notes on in an array of strings of all note widgets of the EasyNotePair that have been added to window.document object.</p>
+        <div class="code">
+        <code>const noteAreaOnPage = pair.getNoteAreaOnPage()</code>
+        </div>
+        <h3>.getNoteAreaOfWidget(widget)</h3>
+        <p>Returns the area that the user took notes on in an array of strings of a specific note widget of the EasyNotePair.</p>
+        <div class="code">
+        <code>const noteArea = pair.getNoteAreaOfWidget(note)</code>
+        </div>
         <h3>.getNoteContent()</h3>
+        <p>Returns the note area along with its note contents in an array of key-value pairs of all note widgets of the EasyNotePair.</p>
+        <div class="code">
+        <code>const noteContents = pair.getNoteContent()</code>
+        </div>
+        <h3>.getNoteContentOnPage()</h3>
+        <p>Returns the note area along with its note contents in an array of key-value pairs of all note widgets of the EasyNotePair that have been added to window.document object.</p>
+        <div class="code">
+        <code>const noteContentOnPage = pair.getNoteContentOnPage()</code>
+        </div>
+        <h3>.getNoteContentOfWidget(widget)</h3>
+        <p>Returns the note area along with its note contents in an array of key-value pairs of a specific note widget of the EasyNotePair.</p>
+        <div class="code">
+        <code>const noteContent = pair.getNoteContentOfWidget(note)</code>
+        </div>
         <h3>.changeNoteWidgetStyle(style)</h3>
+        <p>Changes all note widgets' style of the EasyNotePair to a new style.</p>
+        <div class="code">
+        <code>pair.changeNoteWidgetStyle('{color: purple}')</code>
+        <br><code>//change pair's note widgets' text color to purple.</code>
+        </div>
         <h3>.changeControllerStyle(style)</h3>
+        <p>Changes the control widget's style of the EasyNotePair to a new style.</p>
+        <div class="code">
+        <code>pair.changeControllerStyle('{border: 2px solid black}')</code>
+        <br><code>//change pair's control widget's border style.</code>
+        </div>
         <h3>.changeControllerButtonStyle(addNoteButtonStyle='', copyButtonStyle='', deleteButtonStyle='', wipeButtonStyle='')</h3>
+        <p>Changes each button's style of the control widget of the EasyNotePair.</p>
+        <div class="code">
+        <code>pair.changeControllerButtonStyle('{color: red}', '{background: black}', '{font-family: Arial}', '{border-radius: 1px}')</code>
+        <br><code>//change four buttons' styles respectively.</code>
+        </div>
         <h3>.changeModePickerStyle(textColor='', modePickerBackgroundColor='', highlightModeButtonColor='', noteModeButtonColor='')</h3>
+        <p>Changes mode picker's style of the control widget of the EasyNotePair.</p>
+        <div class="code">
+        <code>pair.changeModePickerStyle('aqua', 'white', 'green', 'yellow')</code>
+        <br><code>//change mode picker's text color, background color, two mode's buttons' background color respectively.</code>
+        </div>
     </main>
 </body>
     
