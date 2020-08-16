@@ -62,19 +62,19 @@
         <h3>.controlWidget(name, style='', copy=true)</h3>
         <p>Creates and returns a control widget of the EasyNotePair object with a specific style and copy highlights feature enabled on default. A EasyNotePair will contain a control widget automatically when created. You don't need to call this method yourself in most cases. And you can't have more than one control widget in one easy-note pair.</p>
         <div class="code">
-        <code>const control = pair.controlWidget('{background: red}', true)</code>
+        <code>const control = pair.controlWidget('background: red', true)</code>
         <br><code>//create a control widget of pair with red background and copy highlights feature enabled.</code>
         </div>
         <h3>.createNoteWidget(text, style='')</h3>
         <p>Creates and returns a note widget as a block element of the EasyNotePair object with specific text and style.</p>
         <div class="code">
-        <code>const note = pair.createNoteWidget('Lorem ipsum', '{color: blue}')</code>
+        <code>const note = pair.createNoteWidget('Lorem ipsum', 'color: blue')</code>
         <br><code>//create a note widget as a block element of pair with text 'Lorem ipsum' in blue.</code>
         </div>
         <h3>.createNoteLine(text, style='')</h3>
         <p>Creates and returns a note widget as an inline element of the EasyNotePair object with specific text and style. You can embed the element in paragraphs that you just want a few sentences to be able to take notes on.</p>
         <div class="code">
-        <code>const inlineNote = pair.createNoteLine('Lorem ipsum', '{color: blue}')</code>
+        <code>const inlineNote = pair.createNoteLine('Lorem ipsum', 'color: blue')</code>
         <br><code>//create a note widget as an inline element of pair with text 'Lorem ipsum' in blue.</code>
         </div>
         <h3>.highlightFunc()</h3>
@@ -127,19 +127,19 @@
         <h3>.changeNoteWidgetStyle(style)</h3>
         <p>Changes all note widgets' style of the EasyNotePair to a new style.</p>
         <div class="code">
-        <code>pair.changeNoteWidgetStyle('{color: purple}')</code>
+        <code>pair.changeNoteWidgetStyle('color: purple')</code>
         <br><code>//change pair's note widgets' text color to purple.</code>
         </div>
         <h3>.changeControllerStyle(style)</h3>
         <p>Changes the control widget's style of the EasyNotePair to a new style.</p>
         <div class="code">
-        <code>pair.changeControllerStyle('{border: 2px solid black}')</code>
+        <code>pair.changeControllerStyle('border: 2px solid black')</code>
         <br><code>//change pair's control widget's border style.</code>
         </div>
         <h3>.changeControllerButtonStyle(addNoteButtonStyle='', copyButtonStyle='', deleteButtonStyle='', wipeButtonStyle='')</h3>
         <p>Changes each button's style of the control widget of the EasyNotePair.</p>
         <div class="code">
-        <code>pair.changeControllerButtonStyle('{color: red}', '{background: black}', '{font-family: Arial}', '{border-radius: 1px}')</code>
+        <code>pair.changeControllerButtonStyle('color: red', 'background: black', 'font-family: Arial', 'border-radius: 1px')</code>
         <br><code>//change four buttons' styles respectively.</code>
         </div>
         <h3>.changeModePickerStyle(textColor='', modePickerBackgroundColor='', highlightModeButtonColor='', noteModeButtonColor='')</h3>
