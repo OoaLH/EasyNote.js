@@ -22,10 +22,10 @@ app.use(express.static(__dirname + '/pub'))
 
 app.get('/', (req, res) => {
 	// sending a string
-	res.send('This should be the root route!')
+	//res.send('This should be the root route!')
 
 	//sending some HTML
-	//res.sendFile('pub/examples.html')
+	res.sendFile('pub/LandingPage.html')
 })
 
 // Error codes
