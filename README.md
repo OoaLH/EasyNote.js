@@ -6,7 +6,7 @@ This part is an instruction for getting developers set up to use the EasyNote li
 
 The fully functional library requires jQuery and EasyNote's css file. To use the library, download required files and add codes below to your website's html code.
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"> </script>
+<script type="text/javascript" src='https://code.jquery.com/jquery-latest.min.js'> </script>
 <script defer src='easy-note.js'> </script>
 <link rel="stylesheet" type="text/css" href="easy-note.css"/>
 
