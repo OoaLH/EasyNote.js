@@ -58,11 +58,20 @@
         <h3>controller</h3>
         <p>The control widget of the EasyNotePair. Returns a DOM element.</p>
         <h3>noteWidgets</h3>
-        <p>An array of all note widget DOM elements.</p>
+        <p>An array of all note widget DOM elements of an EasyNotePair.</p>
         <h2>EasyNotePair Methods</h2>
         <h3>.controlWidget(name, style='', copy=true)</h3>
-        <p></p>
+        <p>Creates a control widget of the EasyNotePair object with a specific style and copy highlights feature enabled on default. A EasyNotePair will contain a control widget automatically when created. You don't need to call this method yourself in most cases. And you can't have more than one control widget in one easy-note pair.</p>
+        <div class="code">
+        <code>const control = pair.controlWidget('{background: red}', true)</code>
+        <br><code>//create a control widget of pair with red background and copy highlights feature enabled.</code>
+        </div>
         <h3>.createNoteWidget(text, style='')</h3>
+        <p>Creates a note widget as a block element of the EasyNotePair object with specific text and style</p>
+        <div class="code">
+        <code>const note = pair.createNoteWidget('Lorem ipsum', '{color: blue}')</code>
+        <br><code>//create a note widget as a block element of pair with text 'Lorem ipsum' in blue.</code>
+        </div>
         <h3>.createNoteLine(text, style='')</h3>
         <h3>.highlightFunc()</h3>
         <h3>.getHighlights()</h3>
