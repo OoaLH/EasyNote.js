@@ -410,6 +410,7 @@ EasyNotePair.prototype = {
             }
             item += 1
         }
+        this.normalize()
         /*
         const reg = new RegExp("</span><span class=\"highlighted"+name+"\">","g");
         this.innerHTML = this.innerHTML.replace(reg, "")
