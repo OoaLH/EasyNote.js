@@ -1,6 +1,6 @@
 # js-library-zhan3009: EasyNote.js
 ## Landing Page
-https://sleepy-savannah-54788.herokuapp.com/ 
+https://easy-note-js.herokuapp.com
 ## Getting Started
 This part is an instruction for getting developers set up to use the EasyNote library.
 
@@ -30,5 +30,5 @@ Get the control widget and create note widgets of an EasyNotePair. One EasyNoteP
 
 `//create an inline note element  `
 ## Documentation
-https://sleepy-savannah-54788.herokuapp.com/documentation.html
+https://easy-note-js.herokuapp.com/documentation.html
 
