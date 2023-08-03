@@ -1,6 +1,8 @@
 # js-library-zhan3009: EasyNote.js
 ## Landing Page
-https://easy-note-js.herokuapp.com
+~~https://easy-note-js.herokuapp.com~~
+
+Heroku doesn't offer free dyno any more. Will find a new host.
 ## Getting Started
 This part is an instruction for getting developers set up to use the EasyNote library.
 
