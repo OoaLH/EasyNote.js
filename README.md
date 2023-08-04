@@ -1,8 +1,7 @@
 # js-library-zhan3009: EasyNote.js
 ## Landing Page
-~~https://easy-note-js.herokuapp.com~~
+http://fueryang.com/easynote
 
-Heroku doesn't offer free dyno any more. Will find a new host.
 ## Getting Started
 This part is an instruction for getting developers set up to use the EasyNote library.
 
@@ -32,5 +31,5 @@ Get the control widget and create note widgets of an EasyNotePair. One EasyNoteP
 
 `//create an inline note element  `
 ## Documentation
-https://easy-note-js.herokuapp.com/documentation.html
+http://fueryang.com/easynote/documentation.html
 
