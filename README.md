@@ -1,6 +1,6 @@
 # js-library-zhan3009: EasyNote.js
 ## Landing Page
-http://fueryang.com/easynote
+https://fueryang.com/easynote
 
 ## Getting Started
 This part is an instruction for getting developers set up to use the EasyNote library.
