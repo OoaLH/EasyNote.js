@@ -31,5 +31,5 @@ Get the control widget and create note widgets of an EasyNotePair. One EasyNoteP
 
 `//create an inline note element  `
 ## Documentation
-http://fueryang.com/easynote/documentation.html
+https://fueryang.com/easynote/documentation.html
 
